@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Studyfy{% endblock %}</title>
+
+    <!-- Ícones (Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Estilo do site (um arquivo só para todas as páginas) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Acessibilidade: fica no topo para o modo daltônico já abrir ligado, sem "piscar" -->
+    <script src="{{ url_for('static', filename='acessibilidade.js') }}"></script>
+</head>
+<body>
+
+    <!-- Atalho para quem usa teclado pular direto para o conteúdo -->
+    <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+    <!-- ========== CABEÇALHO (igual em todas as páginas) ========== -->
+    <header>
+        <a class="marca" href="{{ url_for('index') }}">
+            <span class="marca-nome">Studyfy</span>
+            <span class="marca-frase">Onde todo o estudante tem espaço para aprender!</span>
+        </a>
+        <nav aria-label="Menu principal">
+            <ul>
+                {% block nav %}{% endblock %}
+                <!-- Botão que troca entre modo claro e modo escuro (o texto e o ícone mudam pelo acessibilidade.js) -->
+                <li>
+                    <button type="button" id="tema-botao" class="btn btn-navbar btn-pequeno">
+                        <i class="fa-solid fa-moon" aria-hidden="true"></i> <span>Modo escuro</span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ========== CONTEÚDO (cada página preenche aqui) ========== -->
+    <main id="conteudo" class="{% block classe %}{% endblock %}">
+        {% block conteudo %}{% endblock %}
+    </main>
+
+    <!-- ========== RODAPÉ (igual em todas as páginas) ========== -->
+    <footer>
+        <p>&copy; 2026 Studyfy. Todos os direitos reservados.</p>
+        <p>Desenvolvido para auxiliar estudantes na organização de suas tarefas.</p>
+    </footer>
+
+    <!-- ========== PAINEL DE ACESSIBILIDADE ========== -->
+    <button type="button" id="acess-abrir" class="acess-botao" aria-expanded="false" aria-controls="acess-painel">
+        <i class="fa-solid fa-universal-access" aria-hidden="true"></i> Acessibilidade
+    </button>
+
+    <section id="acess-painel" class="acess-painel" aria-label="Opções de acessibilidade" hidden>
+        <h2>Acessibilidade</h2>
+
+        <!-- Modo daltônico: troca verde e dourado por azul e laranja -->
+        <div class="acess-opcao">
+            <span><i class="fa-solid fa-eye" aria-hidden="true"></i> Modo daltônico</span>
+            <button type="button" id="acess-daltonico" class="btn btn-contorno btn-pequeno" aria-pressed="false">
+                <span id="acess-daltonico-texto">Desativado</span>
+            </button>
+        </div>
+
+        <!-- Tamanho da letra -->
+        <div class="acess-opcao">
+            <span><i class="fa-solid fa-text-height" aria-hidden="true"></i> Letra <strong id="acess-tamanho">100%</strong></span>
+            <span class="acess-par">
+                <button type="button" id="acess-menos" class="btn btn-contorno btn-pequeno" aria-label="Diminuir letra">A-</button>
+                <button type="button" id="acess-mais" class="btn btn-contorno btn-pequeno" aria-label="Aumentar letra">A+</button>
+            </span>
+        </div>
+
+        <button type="button" id="acess-restaurar" class="btn btn-acao btn-pequeno btn-largo">
+            <i class="fa-solid fa-rotate-left" aria-hidden="true"></i> Restaurar padrão
+        </button>
+
+        <p class="acess-dica">
+            <i class="fa-solid fa-hands" aria-hidden="true"></i>
+            Libras: use o botão do VLibras, na lateral da tela.
+        </p>
+    </section>
+
+    <!-- ========== VLIBRAS (tradutor de português para Libras do Governo Federal) ========== -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        // Só inicia o VLibras se o script do governo carregou
+        if (window.VLibras) {
+            new window.VLibras.Widget('https://vlibras.gov.br/app');
+        }
+    </script>
+
+</body>
+</html>

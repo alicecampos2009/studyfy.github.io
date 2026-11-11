@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block titulo %}Studyfy - Nova Tarefa{% endblock %}
+
+{% block nav %}
+    <li><a href="{{ url_for('index') }}">Início</a></li>
+    <li><a href="{{ url_for('menu') }}">Menu</a></li>
+{% endblock %}
+
+{% block classe %}centro{% endblock %}
+
+{% block conteudo %}
+    <section class="cartao cartao-marrom">
+        <a href="{{ url_for('menu') }}" class="btn btn-claro btn-pequeno voltar"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Voltar ao Menu</a>
+        <h1>Cadastrar Tarefa</h1>
+
+        <form method="POST">
+            <label for="nome">Nome da tarefa</label>
+            <input type="text" id="nome" name="nome" placeholder="Digite o nome da tarefa" required>
+
+            <label for="urgente">É urgente?</label>
+            <select id="urgente" name="urgente">
+                <option value="s">Sim</option>
+                <option value="n">Não</option>
+            </select>
+
+            <button type="submit" class="btn btn-destaque btn-largo">Cadastrar</button>
+        </form>
+    </section>
+{% endblock %}

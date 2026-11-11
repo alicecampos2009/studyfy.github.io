@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block titulo %}Studyfy - Login{% endblock %}
+
+{% block nav %}
+    <li><a href="{{ url_for('index') }}">Início</a></li>
+    <li><a href="{{ url_for('criarConta') }}">Cadastrar</a></li>
+{% endblock %}
+
+{% block classe %}centro{% endblock %}
+
+{% block conteudo %}
+    <section class="cartao">
+        <a href="{{ url_for('index') }}" class="btn btn-contorno btn-pequeno voltar"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Voltar ao início</a>
+        <img class="cartao-logo" src="{{ url_for('static', filename='logo.webp') }}" width="480" height="238" alt="Logo do Studyfy">
+        <h1>Login</h1>
+
+        <!-- Mensagem de erro (só aparece se o usuário ou a senha estiverem errados) -->
+        {% if erro %}
+            <p class="erro" role="alert"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i> {{ erro }}</p>
+        {% endif %}
+
+        <form action="{{ url_for('login') }}" method="POST">
+            <label for="usuario">Usuário</label>
+            <input type="text" id="usuario" name="usuario" autocomplete="username" required>
+
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" autocomplete="current-password" required>
+
+            <button type="submit" class="btn btn-acao btn-largo">Entrar</button>
+        </form>
+
+        <p class="cartao-rodape">Ainda não tem conta?</p>
+        <a href="{{ url_for('criarConta') }}" class="btn btn-contorno btn-largo">Criar conta</a>
+    </section>
+{% endblock %}

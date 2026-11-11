@@ -1,0 +1,4 @@
+<!-- Mostra as mensagens simpáticas depois de uma ação (concluir, excluir, restaurar...) -->
+{% for mensagem in get_flashed_messages() %}
+    <p class="aviso" role="status"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> {{ mensagem }}</p>
+{% endfor %}

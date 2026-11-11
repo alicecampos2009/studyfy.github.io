@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block titulo %}Studyfy - Minhas Tarefas{% endblock %}
+
+{% block nav %}
+    <li><a href="{{ url_for('nova_tarefa') }}">+ Nova Tarefa</a></li>
+    <li><a href="{{ url_for('lixeira') }}">Lixeira</a></li>
+{% endblock %}
+
+{% block classe %}pagina{% endblock %}
+
+{% block conteudo %}
+    <a href="{{ url_for('menu') }}" class="btn btn-contorno btn-pequeno voltar"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Voltar ao Menu</a>
+
+    <h1>Minhas Tarefas</h1>
+
+    {% include "_avisos.html" %}
+
+    {% if tarefas %}
+        {% set voltar = "listar" %}
+        <ul class="lista-tarefas">
+            {% for tarefa in tarefas %}
+                {% include "_tarefa.html" %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="vazio">
+            <i class="fa-solid fa-bullseye" aria-hidden="true"></i>
+            <p>Nenhuma tarefa por aqui ainda. Que tal criar uma?</p>
+            <a href="{{ url_for('nova_tarefa') }}" class="btn btn-acao">Cadastrar tarefa</a>
+        </div>
+    {% endif %}
+{% endblock %}

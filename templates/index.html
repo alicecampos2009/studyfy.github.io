@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block titulo %}Studyfy - Início{% endblock %}
+
+{% block nav %}
+    <li><a href="{{ url_for('index') }}">Início</a></li>
+    <li class="dropdown">
+        <!-- No computador abre o submenu ao passar o mouse; no celular leva para a página de menu -->
+        <a href="{{ url_for('menu') }}">Menu <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></a>
+        <ul class="dropdown-menu">
+            <li><a href="{{ url_for('nova_tarefa') }}">Cadastrar tarefa</a></li>
+            <li><a href="{{ url_for('listar') }}">Listar tarefas</a></li>
+            <li><a href="{{ url_for('urgentes') }}">Ver tarefas urgentes</a></li>
+        </ul>
+    </li>
+    <li><a href="{{ url_for('criarConta') }}">Cadastrar</a></li>
+    <li><a href="{{ url_for('login') }}">Entrar</a></li>
+{% endblock %}
+
+{% block conteudo %}
+    <section class="hero">
+
+        <!-- Texto da esquerda -->
+        <div class="hero-texto">
+            <span class="tag">Bem-vindo ao Studyfy!</span>
+            <h1>Organize hoje, conquiste amanhã.</h1>
+            <p>O Studyfy é o aplicativo ideal para organizar suas tarefas, definir prioridades e acompanhar sua rotina de estudos de maneira simples. Cadastre-se gratuitamente e transforme sua rotina.</p>
+
+            <ul class="recursos">
+                <li><span class="icone"><i class="fa-solid fa-list-check" aria-hidden="true"></i></span> Organize suas tarefas</li>
+                <li><span class="icone"><i class="fa-solid fa-star" aria-hidden="true"></i></span> Priorize atividades</li>
+                <li><span class="icone"><i class="fa-solid fa-chart-line" aria-hidden="true"></i></span> Acompanhe seu progresso</li>
+                <li><span class="icone"><i class="fa-solid fa-clock" aria-hidden="true"></i></span> Gerencie seu tempo</li>
+            </ul>
+
+            <div class="botoes">
+                <a href="{{ url_for('login') }}" class="btn btn-acao">Entrar</a>
+                <a href="{{ url_for('criarConta') }}" class="btn btn-contorno">Criar conta</a>
+            </div>
+        </div>
+
+        <!-- Imagem da direita -->
+        <div class="hero-imagem">
+            <img src="{{ url_for('static', filename='banner.webp') }}" width="900" height="1350"
+                 alt="Coruja, mascote do Studyfy, ao lado de um celular mostrando o aplicativo">
+        </div>
+
+    </section>
+{% endblock %}

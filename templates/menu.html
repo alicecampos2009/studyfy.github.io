@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block titulo %}Studyfy - Menu{% endblock %}
+
+{% block nav %}
+    <li><a href="{{ url_for('index') }}">Início</a></li>
+{% endblock %}
+
+{% block classe %}centro{% endblock %}
+
+{% block conteudo %}
+    <section class="cartao cartao-marrom">
+        <a href="{{ url_for('index') }}" class="btn btn-claro btn-pequeno voltar"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Voltar ao início</a>
+        <h1>Menu Principal</h1>
+
+        <div class="menu-lista">
+            <a href="{{ url_for('nova_tarefa') }}" class="btn btn-destaque btn-largo"><i class="fa-solid fa-plus" aria-hidden="true"></i> Cadastrar nova tarefa</a>
+            <a href="{{ url_for('listar') }}" class="btn btn-destaque btn-largo"><i class="fa-solid fa-list-check" aria-hidden="true"></i> Listar tarefas</a>
+            <a href="{{ url_for('urgentes') }}" class="btn btn-destaque btn-largo"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Ver tarefas urgentes</a>
+            <a href="{{ url_for('lixeira') }}" class="btn btn-destaque btn-largo"><i class="fa-solid fa-trash" aria-hidden="true"></i> Lixeira</a>
+            <a href="{{ url_for('sair') }}" class="btn btn-claro btn-largo"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i> Sair</a>
+        </div>
+    </section>
+{% endblock %}

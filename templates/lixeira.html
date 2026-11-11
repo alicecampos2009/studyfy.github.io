@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block titulo %}Studyfy - Lixeira{% endblock %}
+
+{% block nav %}
+    <li><a href="{{ url_for('listar') }}">Minhas tarefas</a></li>
+{% endblock %}
+
+{% block classe %}pagina{% endblock %}
+
+{% block conteudo %}
+    <a href="{{ url_for('menu') }}" class="btn btn-contorno btn-pequeno voltar"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Voltar ao Menu</a>
+
+    <h1>Lixeira <i class="fa-solid fa-trash" aria-hidden="true"></i></h1>
+
+    {% include "_avisos.html" %}
+
+    <!-- Aviso fixo sobre o esvaziamento automático -->
+    <p class="aviso"><i class="fa-solid fa-clock" aria-hidden="true"></i> A lixeira se esvazia sozinha: depois de {{ dias }} dias, as tarefas daqui são apagadas de vez. Até lá, você pode restaurar quando quiser.</p>
+
+    {% if tarefas %}
+        <ul class="lista-tarefas">
+            {% for tarefa in tarefas %}
+                <li class="tarefa {% if tarefa.urgente %}urgente{% endif %} {% if tarefa.concluida %}concluida{% endif %}">
+                    <div>
+                        <strong class="tarefa-nome">{{ tarefa.nome }}</strong>
+                        <div class="selos">
+                            <span class="selo selo-lixeira"><i class="fa-solid fa-hourglass-half" aria-hidden="true"></i> Será apagada em {{ tarefa.dias_restantes }} dia{{ "s" if tarefa.dias_restantes != 1 }}</span>
+                        </div>
+                    </div>
+
+                    <div class="acoes">
+                        <form action="{{ url_for('restaurar', id=tarefa.id) }}" method="POST">
+                            <button type="submit" class="btn btn-acao btn-pequeno">
+                                <i class="fa-solid fa-trash-can-arrow-up" aria-hidden="true"></i> Restaurar<span class="so-leitor">: {{ tarefa.nome }}</span>
+                            </button>
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="vazio">
+            <i class="fa-solid fa-leaf" aria-hidden="true"></i>
+            <p>A lixeira está vazia.</p>
+            <a href="{{ url_for('listar') }}" class="btn btn-acao">Voltar às tarefas</a>
+        </div>
+    {% endif %}
+{% endblock %}

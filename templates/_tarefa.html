@@ -1,0 +1,39 @@
+<!-- Um cartão de tarefa. É usado em "Listar tarefas" e em "Tarefas urgentes".
+     A variável "voltar" diz para qual página a pessoa volta depois de clicar nos botões. -->
+<li class="tarefa {% if tarefa.urgente %}urgente{% endif %} {% if tarefa.concluida %}concluida{% endif %}">
+    <div>
+        <strong class="tarefa-nome">{{ tarefa.nome }}</strong>
+        <div class="selos">
+            {% if tarefa.urgente %}<span class="selo selo-urgente"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Urgente</span>{% endif %}
+            {% if tarefa.concluida %}<span class="selo selo-concluida"><i class="fa-solid fa-check" aria-hidden="true"></i> Concluída</span>{% endif %}
+        </div>
+    </div>
+
+    <div class="acoes">
+        {% if tarefa.concluida %}
+            <!-- Tarefa já concluída: aparece o botão para desfazer -->
+            <form action="{{ url_for('desfazer', id=tarefa.id) }}" method="POST">
+                <input type="hidden" name="voltar" value="{{ voltar }}">
+                <button type="submit" class="btn btn-contorno btn-pequeno">
+                    <i class="fa-solid fa-rotate-left" aria-hidden="true"></i> Desfazer<span class="so-leitor"> conclusão: {{ tarefa.nome }}</span>
+                </button>
+            </form>
+        {% else %}
+            <!-- Tarefa pendente: aparece o botão de concluir -->
+            <form action="{{ url_for('concluir', id=tarefa.id) }}" method="POST">
+                <input type="hidden" name="voltar" value="{{ voltar }}">
+                <button type="submit" class="btn btn-acao btn-pequeno">
+                    <i class="fa-solid fa-check" aria-hidden="true"></i> Concluir<span class="so-leitor">: {{ tarefa.nome }}</span>
+                </button>
+            </form>
+        {% endif %}
+
+        <!-- Excluir manda a tarefa para a lixeira (dá para restaurar depois) -->
+        <form action="{{ url_for('excluir', id=tarefa.id) }}" method="POST">
+            <input type="hidden" name="voltar" value="{{ voltar }}">
+            <button type="submit" class="btn btn-contorno btn-pequeno">
+                <i class="fa-solid fa-trash" aria-hidden="true"></i> Excluir<span class="so-leitor">: {{ tarefa.nome }}</span>
+            </button>
+        </form>
+    </div>
+</li>

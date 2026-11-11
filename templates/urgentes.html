@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block titulo %}Studyfy - Tarefas Urgentes{% endblock %}
+
+{% block nav %}
+    <li><a href="{{ url_for('listar') }}">Ver todas</a></li>
+    <li><a href="{{ url_for('lixeira') }}">Lixeira</a></li>
+{% endblock %}
+
+{% block classe %}pagina{% endblock %}
+
+{% block conteudo %}
+    <a href="{{ url_for('menu') }}" class="btn btn-contorno btn-pequeno voltar"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Voltar ao Menu</a>
+
+    <h1>Tarefas Urgentes <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i></h1>
+
+    {% include "_avisos.html" %}
+
+    {% if tarefas %}
+        {% set voltar = "urgentes" %}
+        <ul class="lista-tarefas">
+            {% for tarefa in tarefas %}
+                {% include "_tarefa.html" %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="vazio">
+            <i class="fa-solid fa-face-smile" aria-hidden="true"></i>
+            <p>Nenhuma tarefa urgente no momento!</p>
+            <a href="{{ url_for('listar') }}" class="btn btn-acao">Ver todas as tarefas</a>
+        </div>
+    {% endif %}
+{% endblock %}
